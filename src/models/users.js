@@ -1,0 +1,44 @@
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
+
+const SALT = 10;
+
+const Schema = mongoose.Schema;
+
+const UserSchema = new Schema(
+  {
+    name: { type: String, required: true },
+    last_name: { type: String, required: true },
+    email: { type: String, required: true },
+    birth_date: { type: Date },
+    password: { type: String, required: true },
+    username: { type: String, required: true, unique: true },
+    picture: {
+      type: String,
+      default:
+        'https://upload.wikimedia.org/wikipedia/commons/9/93/Default_profile_picture_%28male%29_on_Facebook.jpg'
+    },
+    gender: { type: String, required: true },
+    adress: [],
+    phone: { type: Number, required: true },
+    user_pay: { type: String, required: true }
+  },
+  { collection: 'Users', timestamps: true }
+);
+
+UserSchema.pre('save', next => {
+  let user = this;
+
+  if (!user.isModified('password')) return next();
+
+  bcrypt.genSalt(SALT, (err, salt) => {
+    if (err) return next(err);
+    bcrypt.hash(user.password, salt, (err, hash) => {
+      if (err) return next(err);
+      user.password = hash;
+      next();
+    });
+  });
+});
+
+export default mongoose.model('Users', UserSchema);
