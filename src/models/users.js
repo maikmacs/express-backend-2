@@ -21,12 +21,12 @@ const UserSchema = new Schema(
     gender: { type: String, required: true },
     adress: [],
     phone: { type: Number, required: true },
-    user_pay: { type: String, required: true }
+    user_pay: { type: String }
   },
   { collection: 'Users', timestamps: true }
 );
 
-UserSchema.pre('save', next => {
+UserSchema.pre('save', function(next) {
   let user = this;
 
   if (!user.isModified('password')) return next();
