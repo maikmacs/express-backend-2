@@ -12,8 +12,8 @@ const StoresSchema = new Schema(
     score: {
       type: [
         {
-          comentario: String,
-          estrellas: Number
+          comment: String,
+          stars: Number
         }
       ]
     },
