@@ -7,8 +7,8 @@ import {
 } from 'graphql';
 
 export const CuponsType = new GraphQLObjectType({
-  name: 'Users',
-  description: 'Users from DB',
+  name: 'Cupons',
+  description: 'Cupons from DB',
   fields: () => ({
     _id: {
       type: GraphQLNonNull(GraphQLID)

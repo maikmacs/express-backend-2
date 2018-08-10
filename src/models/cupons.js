@@ -11,4 +11,4 @@ const CuponsSchema = new Schema(
   { collection: 'StoreType', timestamps: true }
 );
 
-export default mongoose.model('Cupons', CuponsSchema);
+export default mongoose.model('Cupon', CuponsSchema);
