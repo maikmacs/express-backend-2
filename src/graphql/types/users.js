@@ -3,7 +3,8 @@ import {
   GraphQLString,
   GraphQLID,
   GraphQLNonNull,
-  GraphQLInt
+  GraphQLInt,
+  GraphQLList
 } from 'graphql';
 
 export const UserType = new GraphQLObjectType({
