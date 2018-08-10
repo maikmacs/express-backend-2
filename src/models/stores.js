@@ -24,7 +24,7 @@ const StoresSchema = new Schema(
       default: 'https://nl.freelogodesign.org/Content/img/logo-ex-5.png'
     },
     price: { type: String },
-    products: [{ type: Schema.Type.ObjectId, ref: 'Products', required: true }]
+    products: [{ type: Schema.Types.ObjectId, ref: 'Products', required: true }]
   },
   { collection: 'Stores', timestamps: true }
 );

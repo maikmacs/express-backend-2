@@ -4,27 +4,32 @@ import {
   GraphQLID,
   GraphQLInt,
   GraphQLFloat,
-  GraphQLNonNull
+  GraphQLNonNull,
+  GraphQLList
 } from 'graphql';
 
 import { ProductsType } from './products';
 import Product from '../../models/products';
 
 export const ScoreType = new GraphQLObjectType({
-  _id: {
-    type: GraphQLNonNull(GraphQLID)
-  },
-  comment: {
-    type: GraphQLString
-  },
-  estrellas: {
-    stars: GraphQLFloat
-  }
+  name: 'Score',
+  description: 'Score from Store',
+  fields: () => ({
+    _id: {
+      type: GraphQLNonNull(GraphQLID)
+    },
+    comment: {
+      type: GraphQLString
+    },
+    stars: {
+      type: GraphQLFloat
+    }
+  })
 });
 
 export const StoresType = new GraphQLObjectType({
-  name: 'Users',
-  description: 'Users from DB',
+  name: 'Stores',
+  description: 'Stores from DB',
   fields: () => ({
     _id: {
       type: GraphQLNonNull(GraphQLID)
