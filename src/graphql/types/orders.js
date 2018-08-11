@@ -20,8 +20,8 @@ import { CuponsType } from './cupons';
 import Cupon from '../../models/cupons';
 
 export const OrdersType = new GraphQLObjectType({
-  name: 'Users',
-  description: 'Users from DB',
+  name: 'Orders',
+  description: 'Orders from DB',
   fields: () => ({
     _id: {
       type: GraphQLNonNull(GraphQLID)
@@ -42,15 +42,15 @@ export const OrdersType = new GraphQLObjectType({
     },
     products: {
       type: ProductsType,
-      resolve(product) {
-        const { product } = propiedad;
+      resolve(order) {
+        const { product } = order;
         return Product.findById(product).exec();
       }
     },
     cupon: {
       type: CuponsType,
-      resolve(cupon) {
-        const { cupon } = propiedad;
+      resolve(order) {
+        const { cupon } = order;
         return Cupon.findById(cupon).exec();
       }
     },
