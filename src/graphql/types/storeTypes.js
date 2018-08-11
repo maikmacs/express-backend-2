@@ -6,8 +6,8 @@ import {
 } from 'graphql';
 
 export const StoresTypesType = new GraphQLObjectType({
-  name: 'Users',
-  description: 'Users from DB',
+  name: 'StoreTypes',
+  description: 'Store Type from DB',
   fields: () => ({
     _id: {
       type: GraphQLNonNull(GraphQLID)
