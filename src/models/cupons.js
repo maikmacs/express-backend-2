@@ -8,7 +8,7 @@ const CuponsSchema = new Schema(
     description: { type: String },
     discount: { type: Number, required: true }
   },
-  { collection: 'StoreType', timestamps: true }
+  { collection: 'Cupons', timestamps: true }
 );
 
 export default mongoose.model('Cupon', CuponsSchema);
