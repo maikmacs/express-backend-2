@@ -11,8 +11,8 @@ const ProductsSchema = new Schema(
       default:
         'http://images.mentalfloss.com/sites/default/files/styles/mf_image_16x9/public/521724-istock-545286388.jpg'
     },
-    description: { type: String },
-    type: { type: String }
+    description: { type: String }
+    //type: { type: String }
   },
   { collection: 'Products', timestamps: true }
 );

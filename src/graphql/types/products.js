@@ -3,7 +3,8 @@ import {
   GraphQLString,
   GraphQLID,
   GraphQLNonNull,
-  GraphQLFloat
+  GraphQLFloat,
+  GraphQLInputObjectType
 } from 'graphql';
 
 export const ProductsType = new GraphQLObjectType({
@@ -24,9 +25,31 @@ export const ProductsType = new GraphQLObjectType({
     },
     description: {
       type: GraphQLString
+    }
+    // type: {
+    //   type: GraphQLString
+    // }
+  })
+});
+
+export const ProductsInputType = new GraphQLInputObjectType({
+  name: 'addProducts',
+  description: 'Add Products to BDD',
+  fields: () => ({
+    name: {
+      type: GraphQLString
     },
-    type: {
+    price: {
+      type: GraphQLFloat
+    },
+    picture: {
+      type: GraphQLString
+    },
+    description: {
       type: GraphQLString
     }
+    // type: {
+    //   type: GraphQLString
+    // }
   })
 });
