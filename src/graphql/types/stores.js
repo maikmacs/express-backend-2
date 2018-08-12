@@ -5,7 +5,8 @@ import {
   GraphQLInt,
   GraphQLFloat,
   GraphQLNonNull,
-  GraphQLList
+  GraphQLList,
+  GraphQLInputObjectType
 } from 'graphql';
 
 import { ProductsType } from './products';
@@ -70,6 +71,46 @@ export const StoresType = new GraphQLObjectType({
         const { product } = store;
         return Product.findById(product).exec();
       }
+    }
+  })
+});
+
+export const StoresInputType = new GraphQLInputObjectType({
+  name: 'addStores',
+  description: 'Mutation for add Stores',
+  fields: () => ({
+    name: {
+      type: GraphQLString
+    },
+    adress: {
+      type: GraphQLString
+    },
+    email: {
+      type: GraphQLString
+    },
+    phone: {
+      type: GraphQLInt
+    },
+    type: {
+      type: GraphQLString
+    },
+    score: {
+      type: new GraphQLList(GraphQLID)
+    },
+    schedule: {
+      type: GraphQLString
+    },
+    description: {
+      type: GraphQLString
+    },
+    picture: {
+      type: GraphQLString
+    },
+    price: {
+      type: GraphQLString
+    },
+    products: {
+      type: new GraphQLList(GraphQLID)
     }
   })
 });
