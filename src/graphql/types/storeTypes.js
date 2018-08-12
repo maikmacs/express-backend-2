@@ -2,7 +2,8 @@ import {
   GraphQLObjectType,
   GraphQLString,
   GraphQLID,
-  GraphQLNonNull
+  GraphQLNonNull,
+  GraphQLInputObjectType
 } from 'graphql';
 
 export const StoresTypesType = new GraphQLObjectType({
@@ -12,6 +13,19 @@ export const StoresTypesType = new GraphQLObjectType({
     _id: {
       type: GraphQLNonNull(GraphQLID)
     },
+    name: {
+      type: GraphQLString
+    },
+    description: {
+      type: GraphQLString
+    }
+  })
+});
+
+export const StoresTypesInputType = new GraphQLInputObjectType({
+  name: 'addStoreTypes',
+  description: 'Mutattion to add Store Types',
+  fields: () => ({
     name: {
       type: GraphQLString
     },
