@@ -4,7 +4,8 @@ import {
   GraphQLID,
   GraphQLInt,
   GraphQLNonNull,
-  GraphQLBoolean
+  GraphQLBoolean,
+  GraphQLInputObjectType
 } from 'graphql';
 
 import { StoresType } from './stores';
@@ -53,6 +54,37 @@ export const OrdersType = new GraphQLObjectType({
         const { cupon } = order;
         return Cupon.findById(cupon).exec();
       }
+    },
+    adress: {
+      type: GraphQLString
+    },
+    total: {
+      type: GraphQLInt
+    },
+    status_order: {
+      type: GraphQLBoolean
+    },
+    status_pay: {
+      type: GraphQLBoolean
+    }
+  })
+});
+
+export const OrdersInputType = new GraphQLInputObjectType({
+  name: 'addOrders',
+  description: 'Add Orders to DB',
+  fields: () => ({
+    store: {
+      type: GraphQLNonNull(GraphQLID)
+    },
+    user: {
+      type: GraphQLNonNull(GraphQLID)
+    },
+    products: {
+      type: GraphQLNonNull(GraphQLID)
+    },
+    cupon: {
+      type: GraphQLNonNull(GraphQLID)
     },
     adress: {
       type: GraphQLString
