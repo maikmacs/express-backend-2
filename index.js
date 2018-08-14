@@ -3,7 +3,9 @@ import parser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import graphQLHTTP from 'express-graphql';
+
 import { createToken } from './src/resolvers/createToken';
+import { verifyToken } from './src/resolvers/verifyToken';
 
 import schema from './src/graphql';
 
@@ -49,12 +51,25 @@ app.post('/user/create', (req, res) => {
     });
 });
 
+app.use('/graphql', (req, res, next) => {
+  const token = req.headers['authorization'];
+  try {
+    req.user = verifyToken(token);
+    next();
+  } catch (error) {
+    res.status(401).json({ message: error.message });
+  }
+});
+
 app.use(
   '/graphql',
   graphQLHTTP((req, res) => ({
     schema,
     graphiql: true,
-    pretty: true
+    pretty: true,
+    context: {
+      user: req.user
+    }
   }))
 );
 
