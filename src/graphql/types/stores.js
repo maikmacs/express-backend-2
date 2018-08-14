@@ -12,6 +12,9 @@ import {
 import { ProductsType } from './products';
 import Product from '../../models/products';
 
+import { StoresTypesType } from './storeTypes';
+import StoreType from '../../models/storeTypes';
+
 export const ScoreType = new GraphQLObjectType({
   name: 'Score',
   description: 'Score from Store',
@@ -48,7 +51,11 @@ export const StoresType = new GraphQLObjectType({
       type: GraphQLInt
     },
     type: {
-      type: GraphQLString
+      type: StoresTypesType,
+      resolve(store) {
+        const { type } = store;
+        return StoreType.findById(type).exec();
+      }
     },
     score: {
       type: new GraphQLList(ScoreType)
@@ -68,8 +75,8 @@ export const StoresType = new GraphQLObjectType({
     products: {
       type: ProductsType,
       resolve(store) {
-        const { product } = store;
-        return Product.findById(product).exec();
+        const { products } = store;
+        return Product.findById(products).exec();
       }
     }
   })

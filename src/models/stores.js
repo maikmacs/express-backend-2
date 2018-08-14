@@ -8,7 +8,7 @@ const StoresSchema = new Schema(
     adress: { type: String, required: true },
     email: { type: String, required: true },
     phone: { type: Number, required: true },
-    type: { type: String, required: true },
+    type: [{ type: Schema.Types.ObjectId, ref: 'StoreTypes' }],
     score: {
       type: [
         {
@@ -24,7 +24,7 @@ const StoresSchema = new Schema(
       default: 'https://nl.freelogodesign.org/Content/img/logo-ex-5.png'
     },
     price: { type: String },
-    products: [{ type: Schema.Types.ObjectId, ref: 'Products', required: true }]
+    products: [{ type: Schema.Types.ObjectId, ref: 'Products' }]
   },
   { collection: 'Stores', timestamps: true }
 );
