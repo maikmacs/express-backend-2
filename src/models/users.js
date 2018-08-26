@@ -17,9 +17,9 @@ const UserSchema = new Schema(
       default:
         'https://upload.wikimedia.org/wikipedia/commons/9/93/Default_profile_picture_%28male%29_on_Facebook.jpg'
     },
-    gender: { type: String, required: true },
+    gender: { type: String },
     adress: [],
-    phone: { type: Number, required: true },
+    phone: { type: Number },
     user_pay: { type: String }
   },
   { collection: 'Users', timestamps: true }

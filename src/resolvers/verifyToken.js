@@ -15,7 +15,6 @@ export const verifyToken = token => {
   }
   jwt.verify(receivedToken, secret, (err, payload) => {
     if (err) throw new Error('Invalid Token');
-    console.log(payload);
     user = User.findById(payload.id).exec();
   });
   if (!user) throw new Error('User Not Exist');

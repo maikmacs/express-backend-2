@@ -74,7 +74,7 @@ app.use(
 );
 
 app.post('/login', (req, res) => {
-  const token = createToken(req.body.username, req.body.password)
+  const token = createToken(req.body.email, req.body.password)
     .then(token => {
       res.status(201).json({ token });
     })

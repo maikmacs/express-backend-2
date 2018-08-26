@@ -4,21 +4,19 @@ import User from '../models/users';
 const secret = 'S1nD3l4nT41';
 const expiresIn = '1d';
 
-export const createToken = (username, password) => {
-  if (!username || !password) {
+export const createToken = (email, password) => {
+  if (!email || !password) {
     return false;
   }
 
   const compare = new Promise((resolve, reject) => {
-    User.findOne({ username: username })
+    User.findOne({ email: email })
       .then(user => {
-        console.log(user);
         if (!user) reject(false);
         user.comparePassword(password, (err, isMatch) => {
-          console.log(isMatch);
           if (isMatch) {
             let payload = {
-              username: user.username,
+              email: user.email,
               id: user._id
             };
 
