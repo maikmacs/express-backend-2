@@ -22,6 +22,8 @@ var _expressGraphql2 = _interopRequireDefault(_expressGraphql);
 
 var _createToken = require('./src/resolvers/createToken');
 
+var _verifyToken = require('./src/resolvers/verifyToken');
+
 var _graphql = require('./src/graphql');
 
 var _graphql2 = _interopRequireDefault(_graphql);
@@ -66,11 +68,24 @@ app.post('/user/create', function (req, res) {
   });
 });
 
+app.use('/graphql', function (req, res, next) {
+  var token = req.headers['authorization'];
+  try {
+    req.user = (0, _verifyToken.verifyToken)(token);
+    next();
+  } catch (error) {
+    res.status(401).json({ message: error.message });
+  }
+});
+
 app.use('/graphql', (0, _expressGraphql2.default)(function (req, res) {
   return {
     schema: _graphql2.default,
     graphiql: true,
-    pretty: true
+    pretty: true,
+    context: {
+      user: req.user
+    }
   };
 }));
 

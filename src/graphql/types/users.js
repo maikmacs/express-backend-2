@@ -26,9 +26,6 @@ export const UserType = new GraphQLObjectType({
     birth_date: {
       type: GraphQLString
     },
-    username: {
-      type: GraphQLString
-    },
     picture: {
       type: GraphQLString
     },

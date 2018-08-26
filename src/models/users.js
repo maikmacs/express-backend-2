@@ -9,10 +9,9 @@ const UserSchema = new Schema(
   {
     name: { type: String, required: true },
     last_name: { type: String, required: true },
-    email: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
     birth_date: { type: Date },
     password: { type: String, required: true },
-    username: { type: String, required: true, unique: true },
     picture: {
       type: String,
       default:
