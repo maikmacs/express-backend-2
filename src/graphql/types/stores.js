@@ -76,10 +76,10 @@ export const StoresType = new GraphQLObjectType({
       type: GraphQLString
     },
     products: {
-      type: ProductsType,
+      type: new GraphQLList(ProductsType),
       resolve(store) {
         const { products } = store;
-        return Product.findById(products).exec();
+        return Product.find({ _id: { $in: products } }).exec();
       }
     }
   })

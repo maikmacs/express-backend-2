@@ -89,6 +89,7 @@ var StoresType = exports.StoresType = new _graphql.GraphQLObjectType({
         type: _products.ProductsType,
         resolve: function resolve(store) {
           var products = store.products;
+          //return Product.find({_id:{$in:products}}).exec()
 
           return _products3.default.findById(products).exec();
         }
@@ -104,6 +105,9 @@ var StoresInputType = exports.StoresInputType = new _graphql.GraphQLInputObjectT
     return {
       name: {
         type: _graphql.GraphQLString
+      },
+      coordinates: {
+        type: new _graphql.GraphQLList(_graphql.GraphQLID)
       },
       adress: {
         type: _graphql.GraphQLString
