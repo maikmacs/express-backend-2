@@ -35,7 +35,6 @@ var verifyToken = exports.verifyToken = function verifyToken(token) {
   }
   _jsonwebtoken2.default.verify(receivedToken, secret, function (err, payload) {
     if (err) throw new Error('Invalid Token');
-    console.log(payload);
     user = _users2.default.findById(payload.id).exec();
   });
   if (!user) throw new Error('User Not Exist');

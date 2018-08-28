@@ -21,17 +21,16 @@ var Schema = _mongoose2.default.Schema;
 var UserSchema = new Schema({
   name: { type: String, required: true },
   last_name: { type: String, required: true },
-  email: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
   birth_date: { type: Date },
   password: { type: String, required: true },
-  username: { type: String, required: true, unique: true },
   picture: {
     type: String,
     default: 'https://upload.wikimedia.org/wikipedia/commons/9/93/Default_profile_picture_%28male%29_on_Facebook.jpg'
   },
-  gender: { type: String, required: true },
+  gender: { type: String },
   adress: [],
-  phone: { type: Number, required: true },
+  phone: { type: Number },
   user_pay: { type: String }
 }, { collection: 'Users', timestamps: true });
 

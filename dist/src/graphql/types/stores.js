@@ -50,6 +50,9 @@ var StoresType = exports.StoresType = new _graphql.GraphQLObjectType({
       name: {
         type: _graphql.GraphQLString
       },
+      coordinates: {
+        type: new _graphql.GraphQLList(_graphql.GraphQLID)
+      },
       adress: {
         type: _graphql.GraphQLString
       },

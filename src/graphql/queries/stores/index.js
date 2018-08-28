@@ -1,7 +1,7 @@
-import queryAllStores from './all';
-import querySingleStore from './single';
+import allStores from './all';
+import singleStore from './single';
 
 export default {
-  queryAllStores,
-  querySingleStore
+  allStores,
+  singleStore
 };

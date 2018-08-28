@@ -14,7 +14,7 @@ var _stores3 = require('../../types/stores');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var querySingleStore = {
+var singleStore = {
   type: _stores3.StoresType,
   args: {
     id: {
@@ -28,4 +28,4 @@ var querySingleStore = {
   }
 };
 
-exports.default = querySingleStore;
+exports.default = singleStore;

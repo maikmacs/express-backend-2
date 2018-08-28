@@ -5,9 +5,10 @@ const Schema = mongoose.Schema;
 const StoresSchema = new Schema(
   {
     name: { type: String, required: true },
+    coordinates: { type: [Number], default: [0, 0] },
     adress: { type: String, required: true },
-    email: { type: String, required: true },
-    phone: { type: Number, required: true },
+    email: { type: String },
+    phone: { type: Number },
     type: [{ type: Schema.Types.ObjectId, ref: 'StoreTypes' }],
     score: {
       type: [

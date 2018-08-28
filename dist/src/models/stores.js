@@ -14,9 +14,10 @@ var Schema = _mongoose2.default.Schema;
 
 var StoresSchema = new Schema({
   name: { type: String, required: true },
+  coordinates: { type: Array, required: true },
   adress: { type: String, required: true },
-  email: { type: String, required: true },
-  phone: { type: Number, required: true },
+  email: { type: String },
+  phone: { type: Number },
   type: [{ type: Schema.Types.ObjectId, ref: 'StoreTypes' }],
   score: {
     type: [{

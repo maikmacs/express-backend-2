@@ -18,20 +18,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var secret = 'S1nD3l4nT41';
 var expiresIn = '1d';
 
-var createToken = exports.createToken = function createToken(username, password) {
-  if (!username || !password) {
+var createToken = exports.createToken = function createToken(email, password) {
+  if (!email || !password) {
     return false;
   }
 
   var compare = new Promise(function (resolve, reject) {
-    _users2.default.findOne({ username: username }).then(function (user) {
-      console.log(user);
+    _users2.default.findOne({ email: email }).then(function (user) {
       if (!user) reject(false);
       user.comparePassword(password, function (err, isMatch) {
-        console.log(isMatch);
         if (isMatch) {
           var payload = {
-            username: user.username,
+            email: user.email,
             id: user._id
           };
 

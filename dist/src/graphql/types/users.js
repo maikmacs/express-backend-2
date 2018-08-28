@@ -27,9 +27,6 @@ var UserType = exports.UserType = new _graphql.GraphQLObjectType({
       birth_date: {
         type: _graphql.GraphQLString
       },
-      username: {
-        type: _graphql.GraphQLString
-      },
       picture: {
         type: _graphql.GraphQLString
       },

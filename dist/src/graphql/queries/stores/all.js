@@ -14,7 +14,7 @@ var _stores3 = require('../../types/stores');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var queryAllStores = {
+var allStores = {
   type: new _graphql.GraphQLList(_stores3.StoresType),
   resolve: function resolve() {
     var stores = _stores2.default.find().exec();
@@ -22,4 +22,4 @@ var queryAllStores = {
   }
 };
 
-exports.default = queryAllStores;
+exports.default = allStores;

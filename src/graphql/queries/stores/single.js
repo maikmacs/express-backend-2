@@ -3,7 +3,7 @@ import { GraphQLNonNull, GraphQLID } from 'graphql';
 import Stores from '../../../models/stores';
 import { StoresType } from '../../types/stores';
 
-const querySingleStore = {
+const singleStore = {
   type: StoresType,
   args: {
     id: {
@@ -17,4 +17,4 @@ const querySingleStore = {
   }
 };
 
-export default querySingleStore;
+export default singleStore;

@@ -90,7 +90,7 @@ app.use('/graphql', (0, _expressGraphql2.default)(function (req, res) {
 }));
 
 app.post('/login', function (req, res) {
-  var token = (0, _createToken.createToken)(req.body.username, req.body.password).then(function (token) {
+  var token = (0, _createToken.createToken)(req.body.email, req.body.password).then(function (token) {
     res.status(201).json({ token: token });
   }).catch(function () {
     res.status(403).json({ message: 'Login Failed' });

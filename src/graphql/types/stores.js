@@ -41,6 +41,9 @@ export const StoresType = new GraphQLObjectType({
     name: {
       type: GraphQLString
     },
+    coordinates: {
+      type: new GraphQLList(GraphQLID)
+    },
     adress: {
       type: GraphQLString
     },
@@ -88,6 +91,9 @@ export const StoresInputType = new GraphQLInputObjectType({
   fields: () => ({
     name: {
       type: GraphQLString
+    },
+    coordinates: {
+      type: new GraphQLList(GraphQLID)
     },
     adress: {
       type: GraphQLString

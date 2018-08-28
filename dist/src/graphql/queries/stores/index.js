@@ -15,6 +15,6 @@ var _single2 = _interopRequireDefault(_single);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-  queryAllStores: _all2.default,
-  querySingleStore: _single2.default
+  allStores: _all2.default,
+  singleStore: _single2.default
 };
