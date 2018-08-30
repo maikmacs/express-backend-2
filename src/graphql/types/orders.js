@@ -5,7 +5,8 @@ import {
   GraphQLInt,
   GraphQLNonNull,
   GraphQLBoolean,
-  GraphQLInputObjectType
+  GraphQLInputObjectType,
+  GraphQLList
 } from 'graphql';
 
 import { StoresType } from './stores';
@@ -42,17 +43,10 @@ export const OrdersType = new GraphQLObjectType({
       }
     },
     products: {
-      type: ProductsType,
-      resolve(order) {
-        const { product } = order;
-        return Product.findById(product).exec();
-      }
-    },
-    cupon: {
-      type: CuponsType,
-      resolve(order) {
-        const { cupon } = order;
-        return Cupon.findById(cupon).exec();
+      type: new GraphQLList(ProductsType),
+      resolve(store) {
+        const { products } = store;
+        return Product.find({ _id: { $in: products } }).exec();
       }
     },
     adress: {
@@ -81,10 +75,7 @@ export const OrdersInputType = new GraphQLInputObjectType({
       type: GraphQLNonNull(GraphQLID)
     },
     products: {
-      type: GraphQLNonNull(GraphQLID)
-    },
-    cupon: {
-      type: GraphQLNonNull(GraphQLID)
+      type: new GraphQLList(GraphQLID)
     },
     adress: {
       type: GraphQLString

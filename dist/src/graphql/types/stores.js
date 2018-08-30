@@ -86,12 +86,11 @@ var StoresType = exports.StoresType = new _graphql.GraphQLObjectType({
         type: _graphql.GraphQLString
       },
       products: {
-        type: _products.ProductsType,
+        type: new _graphql.GraphQLList(_products.ProductsType),
         resolve: function resolve(store) {
           var products = store.products;
-          //return Product.find({_id:{$in:products}}).exec()
 
-          return _products3.default.findById(products).exec();
+          return _products3.default.find({ _id: { $in: products } }).exec();
         }
       }
     };
