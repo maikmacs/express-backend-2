@@ -3,6 +3,7 @@ import parser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import graphQLHTTP from 'express-graphql';
+import paypal from 'paypal-rest-sdk';
 
 import { createToken } from './src/resolvers/createToken';
 import { verifyToken } from './src/resolvers/verifyToken';
@@ -33,6 +34,85 @@ app.use(cors());
 
 app.get('/', (req, res) => {
   res.send('Server on');
+});
+
+paypal.configure({
+  mode: 'sandbox', //sandbox or live
+  client_id:
+    'AVrNDOVJ48PZn7i034b3iZ-x3V0X2cSstKALK6_oETgcyHF-qFqp9xLaWTwZEAMRCFNmtIMGcNGLSQUx',
+  client_secret:
+    'EJEZid2E2ygCpCeE82Rd5PNao-OOnhX2WiOBLnsDh4QFNBJbUb1Erz7Cd-J85o3KreL94yJUs3tLZjto'
+});
+
+app.get('/paypal/buy/:total', (req, res) => {
+  const total = req.params.total;
+
+  var payment = {
+    intent: 'authorize',
+    payer: {
+      payment_method: 'paypal'
+    },
+    redirect_urls: {
+      return_url: 'http://localhost:3000/success',
+      cancel_url: 'http://localhost:3000/err'
+    },
+    transactions: [
+      {
+        amount: {
+          total: total,
+          currency: 'MXN'
+        },
+        description: ' Pedido de Sin delantal ' + total + ''
+      }
+    ]
+  };
+
+  createPay(payment)
+    .then(transaction => {
+      var id = transaction.id;
+      var links = transaction.links;
+      var counter = links.length;
+      while (counter--) {
+        if (links[counter].method == 'REDIRECT') {
+          // redirect to paypal where user approves the transaction
+
+          var create_webhook_json = {
+            url: 'https://sindelantal-backend.herokuapp.com/paypal/webhook',
+            event_types: [
+              {
+                name: 'PAYMENT.AUTHORIZATION.CREATED'
+              },
+              {
+                name: 'PAYMENT.AUTHORIZATION.VOIDED'
+              }
+            ]
+          };
+
+          paypal.notification.webhook.create(create_webhook_json, function(
+            error,
+            webhook
+          ) {
+            if (error) {
+              console.log(error.response);
+              throw error;
+            } else {
+              console.log('Create webhook Response');
+              console.log(webhook);
+            }
+          });
+
+          return res.redirect(links[counter].href);
+        }
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.redirect('/err');
+    });
+});
+
+app.get('/paypal/webhook', (req, res) => {
+  res.send('WEBHOOK RESPONSE');
 });
 
 app.post('/user/create', (req, res) => {
@@ -84,3 +164,15 @@ app.post('/login', (req, res) => {
 });
 
 app.listen(PORT, () => console.log(`Server on ${PORT}`));
+
+var createPay = payment => {
+  return new Promise((resolve, reject) => {
+    paypal.payment.create(payment, function(err, payment) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(payment);
+      }
+    });
+  });
+};
