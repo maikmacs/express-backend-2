@@ -44,9 +44,9 @@ paypal.configure({
     'EJEZid2E2ygCpCeE82Rd5PNao-OOnhX2WiOBLnsDh4QFNBJbUb1Erz7Cd-J85o3KreL94yJUs3tLZjto'
 });
 
-app.get('/paypal/buy/:total', (req, res) => {
-  const total = req.params.total;
-
+app.get('/paypal/buy/', (req, res) => {
+  //const total = req.params.total;
+  const total = 400;
   var payment = {
     intent: 'authorize',
     payer: {
