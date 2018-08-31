@@ -53,8 +53,8 @@ app.get('/paypal/buy/:total', (req, res) => {
       payment_method: 'paypal'
     },
     redirect_urls: {
-      return_url: 'http://localhost:3000/success',
-      cancel_url: 'http://localhost:3000/err'
+      return_url: 'http://localhost:3000/checkout/sucess',
+      cancel_url: 'http://localhost:3000/checkout/error'
     },
     transactions: [
       {
@@ -76,31 +76,6 @@ app.get('/paypal/buy/:total', (req, res) => {
         if (links[counter].method == 'REDIRECT') {
           // redirect to paypal where user approves the transaction
 
-          var create_webhook_json = {
-            url: 'https://sindelantal-backend.herokuapp.com/paypal/webhook',
-            event_types: [
-              {
-                name: 'PAYMENT.AUTHORIZATION.CREATED'
-              },
-              {
-                name: 'PAYMENT.AUTHORIZATION.VOIDED'
-              }
-            ]
-          };
-
-          paypal.notification.webhook.create(create_webhook_json, function(
-            error,
-            webhook
-          ) {
-            if (error) {
-              console.log(error.response);
-              throw error;
-            } else {
-              console.log('Create webhook Response');
-              console.log(webhook);
-            }
-          });
-
           return res.redirect(links[counter].href);
         }
       }
@@ -111,8 +86,22 @@ app.get('/paypal/buy/:total', (req, res) => {
     });
 });
 
-app.get('/paypal/webhook', (req, res) => {
-  res.send('WEBHOOK RESPONSE');
+app.post('/paypal/webhook', (req, res) => {
+  const body = req.body;
+
+  switch (body.event_type) {
+    case 'PAYMENT.CAPTURE.COMPLETED':
+      console.log('PAYMENT.CAPTURE.COMPLETE');
+      break;
+    case 'PAYMENT.CAPTURE.DENIED':
+      console.log('PAYMENT.CAPTURE.DENIED');
+      break;
+    case 'PAYMENT.AUTHORIZATION.CREATED':
+      console.log('PAYMENT.AUTHORIZATION.CREATED');
+    default:
+      console.log(body.summary);
+      break;
+  }
 });
 
 app.post('/user/create', (req, res) => {
