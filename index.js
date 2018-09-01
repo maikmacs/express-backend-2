@@ -44,17 +44,18 @@ paypal.configure({
     'EJEZid2E2ygCpCeE82Rd5PNao-OOnhX2WiOBLnsDh4QFNBJbUb1Erz7Cd-J85o3KreL94yJUs3tLZjto'
 });
 
-app.get('/paypal/buy/', (req, res) => {
-  //const total = req.params.total;
-  const total = 400;
+app.post('/paypal/buy/', (req, res) => {
+  const total = req.bod.total;
+  const items = req.bod.item;
+
   var payment = {
     intent: 'authorize',
     payer: {
       payment_method: 'paypal'
     },
     redirect_urls: {
-      return_url: 'http://localhost:3000/checkout/sucess',
-      cancel_url: 'http://localhost:3000/checkout/error'
+      return_url: 'http://localhost:3000/checkout-sucess',
+      cancel_url: 'http://localhost:3000/checkout-error'
     },
     transactions: [
       {
@@ -62,7 +63,10 @@ app.get('/paypal/buy/', (req, res) => {
           total: total,
           currency: 'MXN'
         },
-        description: ' Pedido de Sin delantal ' + total + ''
+        description: 'Sin Delantal',
+        item_list: {
+          items: [items]
+        }
       }
     ]
   };
